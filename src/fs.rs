@@ -312,6 +312,7 @@ impl FileSystemStats {
 /// A FAT filesystem object.
 ///
 /// `FileSystem` struct is representing a state of a mounted FAT volume.
+#[derive(Clone)]
 pub struct FileSystem<IO: ReadWriteSeek, TP, OCC> {
     pub(crate) disk: RefCell<IO>,
     pub(crate) options: FsOptions<TP, OCC>,

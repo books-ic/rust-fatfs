@@ -124,6 +124,16 @@ impl<'a, IO: ReadWriteSeek, TP, OCC> Dir<'a, IO, TP, OCC> {
 }
 
 impl<'a, IO: ReadWriteSeek, TP: TimeProvider, OCC: OemCpConverter> Dir<'a, IO, TP, OCC> {
+    pub fn get_entry(&self, name: &str) -> Result<DirEntry<'a, IO, TP, OCC>, Error<IO::Error>> {
+        for r in self.iter() {
+            let e = r?;
+            // compare name ignoring case
+            if e.eq_name(name) {
+                return Ok(e);
+            }
+        }
+        Err(Error::NotFound) //("No such file or directory"))
+    }
     fn find_entry(
         &self,
         name: &str,
