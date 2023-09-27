@@ -70,6 +70,7 @@ mod file;
 mod fs;
 mod io;
 mod table;
+#[allow(deprecated)]
 mod time;
 
 pub use crate::dir::*;
